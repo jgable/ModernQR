@@ -1,15 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 //using System.Drawing.Imaging;
 //using System.Drawing;
 using System.IO;
-using System.Resources;
-
-using ModernQR.Properties;
-
-using SystemUtils = ModernQR.Codec.Util.SystemUtils;
+using System.Text;
+using ModernQR.Core.Properties;
 using QRCodeUtility = ModernQR.Codec.Util.QRCodeUtility;
+using SystemUtils = ModernQR.Codec.Util.SystemUtils;
 
 namespace ModernQR.Codec
 {
