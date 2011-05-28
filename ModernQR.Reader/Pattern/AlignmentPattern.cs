@@ -1,12 +1,8 @@
-using System;
-//using QRCodeDecoder = ModernQR.Codec.QRCodeDecoder;
-using ModernQR.Codec.Reader;
-using AlignmentPatternNotFoundException = ModernQR.ExceptionHandler.AlignmentPatternNotFoundException;
-using InvalidVersionException = ModernQR.ExceptionHandler.InvalidVersionException;
 using ModernQR.Geom;
-using ModernQR.Codec.Util;
+using AlignmentPatternNotFoundException = ModernQR.ExceptionHandler.AlignmentPatternNotFoundException;
+using ModernQR.Util.Pattern;
 
-namespace ModernQR.Codec.Reader.Pattern
+namespace ModernQR.Util.Reader.Pattern
 {
 	
 	public class AlignmentPattern
@@ -16,9 +12,10 @@ namespace ModernQR.Codec.Reader.Pattern
         internal const int LEFT = 3;
         internal const int TOP = 4;
 
-        internal static DebugCanvas canvas;
         internal Point[][] center;
         internal int patternDistance;
+
+        private static DebugCanvas canvas;
 
         virtual public int LogicalDistance
 		{
@@ -28,6 +25,11 @@ namespace ModernQR.Codec.Reader.Pattern
 			}
 			
 		}
+
+        static AlignmentPattern()
+        {
+            canvas = QRCodeDecoder.Canvas;
+        }
 		
 		internal AlignmentPattern(Point[][] center, int patternDistance)
 		{
@@ -70,15 +72,15 @@ namespace ModernQR.Codec.Reader.Pattern
 			
 			axis.Origin = finderPattern.getCenter(FinderPattern.UL);
 			centers[0][0] = axis.translate(3, 3);
-			canvas.drawCross(centers[0][0], ModernQR.Codec.Util.Color_Fields.BLUE);
+			//canvas.drawCross(centers[0][0], ModernQR.Util.Color_Fields.BLUE);
 			
 			axis.Origin = finderPattern.getCenter(FinderPattern.UR);
 			centers[sqrtCenters - 1][0] = axis.translate(- 3, 3);
-			canvas.drawCross(centers[sqrtCenters - 1][0], ModernQR.Codec.Util.Color_Fields.BLUE);
+			//canvas.drawCross(centers[sqrtCenters - 1][0], ModernQR.Util.Color_Fields.BLUE);
 			
 			axis.Origin = finderPattern.getCenter(FinderPattern.DL);
 			centers[0][sqrtCenters - 1] = axis.translate(3, - 3);
-			canvas.drawCross(centers[0][sqrtCenters - 1], ModernQR.Codec.Util.Color_Fields.BLUE);
+			//canvas.drawCross(centers[0][sqrtCenters - 1], ModernQR.Util.Color_Fields.BLUE);
 			
 			Point tmpPoint = centers[0][0];
 			
@@ -88,7 +90,7 @@ namespace ModernQR.Codec.Reader.Pattern
 				{
 					if ((x == 0 && y == 0) || (x == 0 && y == sqrtCenters - 1) || (x == sqrtCenters - 1 && y == 0))
 					{
-						//					canvas.drawCross(centers[x][y], java.awt.Color.MAGENTA);
+						//					//canvas.drawCross(centers[x][y], java.awt.Color.MAGENTA);
 						continue;
 					}
 					Point target = null;
@@ -99,7 +101,7 @@ namespace ModernQR.Codec.Reader.Pattern
 							target = axis.translate(centers[x - 1][y], logicalCenters[x][y].X - logicalCenters[x - 1][y].X, 0);
 						}
 						centers[x][y] = new Point(target.X, target.Y);
-						canvas.drawCross(centers[x][y], ModernQR.Codec.Util.Color_Fields.RED);
+						//canvas.drawCross(centers[x][y], ModernQR.Util.Color_Fields.RED);
 					}
 					else if (x == 0)
 					{
@@ -108,7 +110,7 @@ namespace ModernQR.Codec.Reader.Pattern
 							target = axis.translate(centers[x][y - 1], 0, logicalCenters[x][y].Y - logicalCenters[x][y - 1].Y);
 						}
 						centers[x][y] = new Point(target.X, target.Y);
-						canvas.drawCross(centers[x][y], ModernQR.Codec.Util.Color_Fields.RED);
+						//canvas.drawCross(centers[x][y], ModernQR.Util.Color_Fields.RED);
 					}
 					else
 					{
@@ -122,16 +124,16 @@ namespace ModernQR.Codec.Reader.Pattern
 						
 						if (centers[x][y].distanceOf(precisionCenter) < 6)
 						{
-							canvas.drawCross(centers[x][y], ModernQR.Codec.Util.Color_Fields.RED);
+							//canvas.drawCross(centers[x][y], ModernQR.Util.Color_Fields.RED);
 							int dx = precisionCenter.X - centers[x][y].X;
 							int dy = precisionCenter.Y - centers[x][y].Y;
-							canvas.println("Adjust AP(" + x + "," + y + ") to d(" + dx + "," + dy + ")");
+							canvas.Log("Adjust AP(" + x + "," + y + ") to d(" + dx + "," + dy + ")");
 							
 							centers[x][y] = precisionCenter;
 						}
 					}
-					canvas.drawCross(centers[x][y], ModernQR.Codec.Util.Color_Fields.BLUE);
-					canvas.drawLine(new Line(tmpPoint, centers[x][y]), ModernQR.Codec.Util.Color_Fields.LIGHTBLUE);
+					////canvas.drawCross(centers[x][y], ModernQR.Util.Color_Fields.BLUE);
+					////canvas.drawLine(new Line(tmpPoint, centers[x][y]), ModernQR.Util.Color_Fields.LIGHTBLUE);
 					tmpPoint = centers[x][y];					
 				}
 			}
@@ -213,13 +215,7 @@ namespace ModernQR.Codec.Reader.Pattern
 				logicalCenters[i] = new Point[1];
 			}
 			int[] logicalSeeds = new int[1];
-			//create "column(row)-coordinates" which based on relative coordinates
-			//int sqrtCenters = (version / 7) + 2;
-			//logicalSeeds = new int[sqrtCenters];
-			//for(int i=0 ; i<sqrtCenters ; i++) {
-			//	logicalSeeds[i] = 6 + i * (4 + 4 * version) / (sqrtCenters - 1);
-			//	logicalSeeds[i] -= (logicalSeeds[i] - 2) % 4;
-			//}
+			
 			logicalSeeds = LogicalSeed.getSeed(version);
 			logicalCenters = new Point[logicalSeeds.Length][];
 			for (int i2 = 0; i2 < logicalSeeds.Length; i2++)
@@ -236,10 +232,6 @@ namespace ModernQR.Codec.Reader.Pattern
 				}
 			}
 			return logicalCenters;
-		}
-		static AlignmentPattern()
-		{
-			canvas = QRCodeDecoder.Canvas;
 		}
 	}
 }

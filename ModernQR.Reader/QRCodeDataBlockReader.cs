@@ -1,9 +1,7 @@
 using System;
-using QRCodeDecoder = ModernQR.Codec.QRCodeDecoder;
 using InvalidDataBlockException = ModernQR.ExceptionHandler.InvalidDataBlockException;
-using DebugCanvas = ModernQR.Codec.Util.DebugCanvas;
-using SystemUtils = ModernQR.Codec.Util.SystemUtils;
-namespace ModernQR.Codec.Reader
+
+namespace ModernQR.Util.Reader
 {
 	
 	public class QRCodeDataBlockReader
@@ -12,7 +10,6 @@ namespace ModernQR.Codec.Reader
 		{
 			get
 			{
-				//canvas.println("data blocks:"+ (blocks.length - numErrorCorrectionCode));
 				if ((blockPointer > blocks.Length - numErrorCorrectionCode - 2))
 					return 0;
 				else
@@ -24,7 +21,7 @@ namespace ModernQR.Codec.Reader
 		{
 			get
 			{
-				canvas.println("Reading data blocks.");
+				canvas.Log("Reading data blocks.");
 				System.IO.MemoryStream output = new System.IO.MemoryStream();
 				
 				try
@@ -32,7 +29,6 @@ namespace ModernQR.Codec.Reader
 					do 
 					{
 						int mode = NextMode;
-						//canvas.println("mode: " + mode);
 						if (mode == 0)
 						{
 							if (output.Length > 0)
@@ -108,12 +104,12 @@ namespace ModernQR.Codec.Reader
 		{
 			get
 			{
-				canvas.println("Reading data blocks...");
+				canvas.Log("Reading data blocks...");
 				String dataString = "";
 				do 
 				{
 					int mode = NextMode;
-					canvas.println("mode: " + mode);
+					canvas.Log("mode: " + mode);
 					if (mode == 0)
 						break;
 					//if (mode != 1 && mode != 2 && mode != 4 && mode != 8)
@@ -127,7 +123,7 @@ namespace ModernQR.Codec.Reader
 					}
 					
 					dataLength = getDataLength(mode);
-					canvas.println(System.Convert.ToString(blocks[blockPointer]));
+					canvas.Log(System.Convert.ToString(blocks[blockPointer]));
 					System.Console.Out.WriteLine("length: " + dataLength);
 					switch (mode)
 					{
@@ -404,7 +400,7 @@ namespace ModernQR.Codec.Reader
 			
 			do 
 			{
-                canvas.println("Length: " + length);
+                canvas.Log("Length: " + length);
 				intData = getNextBits(8);
 				output.WriteByte((byte) intData);
 				length--;

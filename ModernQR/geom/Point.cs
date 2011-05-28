@@ -1,5 +1,5 @@
 using System;
-using QRCodeUtility = ModernQR.Codec.Util.QRCodeUtility;
+using QRCodeUtility = ModernQR.Util.QRCodeUtility;
 
 namespace ModernQR.Geom
 {  

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace ThoughtWorks.QRCode.Codec.Data
+namespace ModernQR.Util.Data
 {
     public class QRCodeBitmapImage : QRCodeImage
     {

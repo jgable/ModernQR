@@ -1,5 +1,5 @@
 using System;
-namespace ModernQR.Codec.Util
+namespace ModernQR.Util
 {
 	
 	public struct Color_Fields{

@@ -1,6 +1,6 @@
 using System;
 
-namespace ModernQR.Codec.Ecc
+namespace ModernQR.Util.Ecc
 {	
 	public class ReedSolomon
 	{

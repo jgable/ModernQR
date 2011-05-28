@@ -1,5 +1,5 @@
 using System;
-using QRCodeUtility = ModernQR.Codec.Util.QRCodeUtility;
+using QRCodeUtility = ModernQR.Util.QRCodeUtility;
 
 namespace ModernQR.Geom
 {	
@@ -49,12 +49,15 @@ namespace ModernQR.Geom
 				return r;
 			}
 			
-		}		
-		
-		public Line()
-		{
-			x1 = y1 = x2 = y2 = 0;
 		}
+
+        public Line()
+            : this(0,0,0,0)
+        { }
+
+        public Line(Point p1, Point p2)
+            : this(p1.X, p1.Y, p2.X, p2.Y)
+        { }
 
 		public Line(int x1, int y1, int x2, int y2)
 		{
@@ -63,13 +66,8 @@ namespace ModernQR.Geom
 			this.x2 = x2;
 			this.y2 = y2;
 		}
-		public Line(Point p1, Point p2)
-		{
-			x1 = p1.X;
-			y1 = p1.Y;
-			x2 = p2.X;
-			y2 = p2.Y;
-		}
+		
+
 		public virtual Point getP1()
 		{
 			return new Point(x1, y1);

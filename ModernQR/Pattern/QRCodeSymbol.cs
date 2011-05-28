@@ -1,12 +1,9 @@
 using System;
-using QRCodeDecoder = ThoughtWorks.QRCode.Codec.QRCodeDecoder;
-using BCH15_5 = ThoughtWorks.QRCode.Codec.Ecc.BCH15_5;
-using ThoughtWorks.QRCode.Geom;
-using LogicalSeed = ThoughtWorks.QRCode.Codec.Reader.Pattern.LogicalSeed;
-using DebugCanvas = ThoughtWorks.QRCode.Codec.Util.DebugCanvas;
-using SystemUtils = ThoughtWorks.QRCode.Codec.Util.SystemUtils;
+using ModernQR.Geom;
+using BCH15_5 = ModernQR.Util.Ecc.BCH15_5;
+using LogicalSeed = ModernQR.Util.Pattern.LogicalSeed;
 
-namespace ThoughtWorks.QRCode.Codec.Data
+namespace ModernQR.Util.Data
 {
 	
 	public class QRCodeSymbol

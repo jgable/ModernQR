@@ -1,6 +1,6 @@
 using System;
 
-namespace ModernQR.Codec.Util
+namespace ModernQR.Util
 {
 
     /// <summary>
@@ -8,6 +8,11 @@ namespace ModernQR.Codec.Util
     /// </summary>
     public class SystemUtils
     {
+        public static class Constants
+        {
+            public static int DECIMAL_PLACES = 21;
+        }
+
         /// <summary>Reads a number of characters from the current source Stream and writes the data to the target array at the specified index.</summary>
         /// <param name="sourceStream">The source Stream to read from.</param>
         /// <param name="target">Contains the array of characteres read from the source Stream.</param>

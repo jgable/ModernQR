@@ -4,10 +4,10 @@ using System;
 using System.IO;
 using System.Text;
 using ModernQR.Core.Properties;
-using QRCodeUtility = ModernQR.Codec.Util.QRCodeUtility;
-using SystemUtils = ModernQR.Codec.Util.SystemUtils;
+using QRCodeUtility = ModernQR.Util.QRCodeUtility;
+using SystemUtils = ModernQR.Util.SystemUtils;
 
-namespace ModernQR.Codec
+namespace ModernQR.Util
 {
     public class QRCodeEncoder
     {
@@ -18,9 +18,7 @@ namespace ModernQR.Codec
         //internal static String DATA_PATH = "qrcode_data";
         //internal static String QRCODE_DATA_PATH = String.Empty;
 
-        internal ERROR_CORRECTION qrcodeErrorCorrect;
-        internal ENCODE_MODE qrcodeEncodeMode;
-		internal int qrcodeVersion;
+        internal int qrcodeVersion;
 		
 		internal int qrcodeStructureappendN;
 		internal int qrcodeStructureappendM;
@@ -29,25 +27,25 @@ namespace ModernQR.Codec
         //internal Color qrCodeBackgroundColor;
         //internal Color qrCodeForegroundColor;
 
-        internal int qrCodeScale;
-
-		internal String qrcodeStructureappendOriginaldata;
+        internal String qrcodeStructureappendOriginaldata;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public QRCodeEncoder()
         {
-            qrcodeErrorCorrect = ERROR_CORRECTION.M;
-            qrcodeEncodeMode = ENCODE_MODE.BYTE;
-            qrcodeVersion = 7;
+            QRCodeErrorCorrect = ERROR_CORRECTION.M;
+            QRCodeEncodeMode = ENCODE_MODE.BYTE;
+            QRCodeScale = 4;            
+            QRCodeVersion = 7;
 
             qrcodeStructureappendN = 0;
             qrcodeStructureappendM = 0;
             qrcodeStructureappendParity = 0;
             qrcodeStructureappendOriginaldata = "";
 
-            qrCodeScale = 4;
+            
+
             //qrCodeBackgroundColor = Color.White;
             //qrCodeForegroundColor = Color.Black;
            
@@ -57,60 +55,35 @@ namespace ModernQR.Codec
 
 
         virtual public ERROR_CORRECTION QRCodeErrorCorrect
-		{
-			get
-			{
-				return qrcodeErrorCorrect;
-			}
-			
-			set
-			{
-				qrcodeErrorCorrect = value;
-			}
-			
-		}
-		
-		virtual public int QRCodeVersion
-		{
-			get
-			{
-				return qrcodeVersion;
-			}
-			
-			set
-			{
-				if (value >= 0 && value <= 40)
-				{
-					qrcodeVersion = value;
-				}
-			}
-			
-		}
+        {
+            get;
+            set;
+        }
+
+        virtual public int QRCodeVersion
+        {
+            get { return qrcodeVersion; }
+
+            set
+            {
+                if (value >= 0 && value <= 40)
+                {
+                    qrcodeVersion = value;
+                }
+            }
+
+        }
 
         virtual public ENCODE_MODE QRCodeEncodeMode
-		{
-			get
-			{
-				return qrcodeEncodeMode;
-			}
-			
-			set
-			{
-				qrcodeEncodeMode = value;
-			}
-			
-		}
+        {
+            get;
+            set;
+        }
 
         virtual public int QRCodeScale
         {
-            get
-            {
-                return qrCodeScale;
-            }
-            set
-            {
-                qrCodeScale = value;
-            }
+            get;
+            set;
         }
 
         //virtual public Color QRCodeBackgroundColor
@@ -228,7 +201,7 @@ namespace ModernQR.Codec
 			int[] codewordNumPlus;
 			int codewordNumCounterValue;
 			
-			switch (qrcodeEncodeMode)
+			switch (QRCodeEncodeMode)
 			{				
 				/* ---- alphanumeric mode ---  */
                 case ENCODE_MODE.ALPHA_NUMERIC: 
@@ -389,7 +362,7 @@ namespace ModernQR.Codec
 			}
 			
 			int ec;
-			switch (qrcodeErrorCorrect)
+			switch (QRCodeErrorCorrect)
 			{
 				
 				case ERROR_CORRECTION.L: 

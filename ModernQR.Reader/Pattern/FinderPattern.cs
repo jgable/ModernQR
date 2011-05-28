@@ -1,14 +1,9 @@
-using System;
-using QRCodeDecoder = ModernQR.Codec.QRCodeDecoder;
-using ModernQR.Codec.Reader;
+using ModernQR.Geom;
 using FinderPatternNotFoundException = ModernQR.ExceptionHandler.FinderPatternNotFoundException;
 using InvalidVersionInfoException = ModernQR.ExceptionHandler.InvalidVersionInfoException;
-using InvalidVersionException = ModernQR.ExceptionHandler.InvalidVersionException;
 using VersionInformationException = ModernQR.ExceptionHandler.VersionInformationException;
-using ModernQR.Geom;
-using ModernQR.Codec.Util;
 
-namespace ModernQR.Codec.Reader.Pattern
+namespace ModernQR.Util.Reader.Pattern
 {
 	
 	public class FinderPattern
@@ -227,7 +222,7 @@ namespace ModernQR.Codec.Reader.Pattern
 			for (int i = 0; i < foundLines.Length; i++)
 				foundLines[i] = (Line) lineAcross[i];
 			
-			canvas.drawLines(foundLines, ModernQR.Codec.Util.Color_Fields.LIGHTGREEN);
+			//canvas.drawLines(foundLines, ModernQR.Util.Color_Fields.LIGHTGREEN);
 			return foundLines;
 		}
 		
@@ -360,7 +355,7 @@ namespace ModernQR.Codec.Reader.Pattern
 					break;
 				}
 			}
-			canvas.println("originPoint is: " + originPoint);
+			canvas.Log("originPoint is: " + originPoint);
 			Point remotePoint = new Point();
 			
 			//with origin that the center of Left-Up Finder Pattern, determine other two patterns center.
@@ -434,7 +429,7 @@ namespace ModernQR.Codec.Reader.Pattern
 			
 			if (foundPoints.Length == 3)
 			{
-				canvas.drawPolygon(foundPoints, ModernQR.Codec.Util.Color_Fields.RED);
+				//canvas.drawPolygon(foundPoints, ModernQR.Util.Color_Fields.RED);
 				return foundPoints;
 			}
 			else
@@ -679,7 +674,7 @@ namespace ModernQR.Codec.Reader.Pattern
 					points[x + y * 3] = target;
 				}
 			}
-			canvas.drawPoints(points, ModernQR.Codec.Util.Color_Fields.RED);
+			////canvas.drawPoints(points, ModernQR.Util.Color_Fields.RED);
 			
 			int exactVersion = 0;
 			try
@@ -688,7 +683,7 @@ namespace ModernQR.Codec.Reader.Pattern
 			}
 			catch (InvalidVersionInfoException e)
 			{
-				canvas.println("Version info error. now retry with other place one.");
+				canvas.Log("Version info error. now retry with other place one.");
 				axis.Origin = centers[DL];
 				axis.ModulePitch = moduleSize[DL]; //DL
 				
@@ -701,7 +696,7 @@ namespace ModernQR.Codec.Reader.Pattern
 						points[x + y * 3] = target;
 					}
 				}
-				canvas.drawPoints(points, ModernQR.Codec.Util.Color_Fields.RED);
+				////canvas.drawPoints(points, ModernQR.Util.Color_Fields.RED);
 				
 				try
 				{

@@ -1,46 +1,12 @@
 using System;
-using Line = ModernQR.Geom.Line;
-using Point = ModernQR.Geom.Point;
 
-namespace ModernQR.Codec.Util
+namespace ModernQR.Util
 {
     public class ConsoleCanvas : DebugCanvas
     {
-
-        public void println(String str)
+        public void Log(String msg)
         {
-            Console.WriteLine(str);
+            Console.WriteLine(msg);
         }
-
-        public void drawPoint(Point point, int color)
-        {
-        }
-
-        public void drawCross(Point point, int color)
-        {
-
-        }
-
-        public void drawPoints(Point[] points, int color)
-        {
-        }
-
-        public void drawLine(Line line, int color)
-        {
-        }
-
-        public void drawLines(Line[] lines, int color)
-        {
-        }
-
-        public void drawPolygon(Point[] points, int color)
-        {
-        }
-
-        public void drawMatrix(bool[][] matrix)
-        {
-        
-        }
-
     }
 }

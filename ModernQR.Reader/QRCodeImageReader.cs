@@ -1,17 +1,14 @@
 using System;
-using QRCodeDecoder = ModernQR.Codec.QRCodeDecoder;
-//using ModernQR.Codec.Data;
+using ModernQR.Geom;
+using ModernQR.Util.Data;
+using ModernQR.Util.Reader.Pattern;
 using AlignmentPatternNotFoundException = ModernQR.ExceptionHandler.AlignmentPatternNotFoundException;
 using FinderPatternNotFoundException = ModernQR.ExceptionHandler.FinderPatternNotFoundException;
-using SymbolNotFoundException = ModernQR.ExceptionHandler.SymbolNotFoundException;
 using InvalidVersionException = ModernQR.ExceptionHandler.InvalidVersionException;
+using SymbolNotFoundException = ModernQR.ExceptionHandler.SymbolNotFoundException;
 using VersionInformationException = ModernQR.ExceptionHandler.VersionInformationException;
-using ModernQR.Geom;
-using ModernQR.Codec.Reader.Pattern;
-using ModernQR.Codec.Util;
-using SystemUtils = ModernQR.Codec.Util.SystemUtils;
 
-namespace ModernQR.Codec.Reader
+namespace ModernQR.Util.Reader
 {
 	
 	public class QRCodeImageReader
@@ -25,7 +22,7 @@ namespace ModernQR.Codec.Reader
 		
 		//I think it's good idea to use DECIMAL_POINT with type "long" too.
 		
-		public static int DECIMAL_POINT = 21;
+		public static int DECIMAL_POINT = ModernQR.Util.SystemUtils.Constants.DECIMAL_PLACES;
 		public const bool POINT_DARK = true;
 		public const bool POINT_LIGHT = false;
 		internal SamplingGrid samplingGrid;
@@ -236,10 +233,10 @@ namespace ModernQR.Codec.Reader
 			int longSide = (image.Length < image[0].Length)?image[0].Length:image.Length;
 			QRCodeImageReader.DECIMAL_POINT = 23 - QRCodeUtility.sqrt(longSide / 256);
 			bitmap = filterImage(image);
-			canvas.println("Drawing matrix.");
-			canvas.drawMatrix(bitmap);
+			canvas.Log("Drawing matrix.");
+			//canvas.drawMatrix(bitmap);
 			
-			canvas.println("Scanning Finder Pattern.");
+			canvas.Log("Scanning Finder Pattern.");
 			FinderPattern finderPattern = null;
 			try
 			{
@@ -247,9 +244,9 @@ namespace ModernQR.Codec.Reader
 			}
 			catch (FinderPatternNotFoundException e)
 			{
-				canvas.println("Not found, now retrying...");
+				canvas.Log("Not found, now retrying...");
 				bitmap = applyCrossMaskingMedianFilter(bitmap, 5);
-				canvas.drawMatrix(bitmap);
+				//canvas.drawMatrix(bitmap);
 				for (int i = 0; i < 1000000000; i++)
 					;
 				try
@@ -271,14 +268,14 @@ namespace ModernQR.Codec.Reader
 			}
 			
 			
-			canvas.println("FinderPattern at");
+			canvas.Log("FinderPattern at");
 			String finderPatternCoordinates = finderPattern.getCenter(FinderPattern.UL).ToString() + finderPattern.getCenter(FinderPattern.UR).ToString() + finderPattern.getCenter(FinderPattern.DL).ToString();
-			canvas.println(finderPatternCoordinates);
+			canvas.Log(finderPatternCoordinates);
 			int[] sincos = finderPattern.getAngle();
-			canvas.println("Angle*4098: Sin " + System.Convert.ToString(sincos[0]) + "  " + "Cos " + System.Convert.ToString(sincos[1]));
+			canvas.Log("Angle*4098: Sin " + System.Convert.ToString(sincos[0]) + "  " + "Cos " + System.Convert.ToString(sincos[1]));
 			
 			int version = finderPattern.Version;
-			canvas.println("Version: " + System.Convert.ToString(version));
+			canvas.Log("Version: " + System.Convert.ToString(version));
 			if (version < 1 || version > 40)
 				throw new InvalidVersionException("Invalid version: " + version);
 			
@@ -293,7 +290,7 @@ namespace ModernQR.Codec.Reader
 			}
 			
 			int matrixLength = alignmentPattern.getCenter().Length;
-			canvas.println("AlignmentPatterns at");
+			canvas.Log("AlignmentPatterns at");
 			for (int y = 0; y < matrixLength; y++)
 			{
 				String alignmentPatternCoordinates = "";
@@ -301,15 +298,15 @@ namespace ModernQR.Codec.Reader
 				{
 					alignmentPatternCoordinates += alignmentPattern.getCenter()[x][y].ToString();
 				}
-				canvas.println(alignmentPatternCoordinates);
+				canvas.Log(alignmentPatternCoordinates);
 			}
 			//for(int i = 0; i < 500000; i++) Console.out.println("");
 			
-			canvas.println("Creating sampling grid.");
+			canvas.Log("Creating sampling grid.");
 			//[TODO] need all-purpose method
 			//samplingGrid = getSamplingGrid2_6(finderPattern, alignmentPattern);
 			samplingGrid = getSamplingGrid(finderPattern, alignmentPattern);
-			canvas.println("Reading grid.");
+			canvas.Log("Reading grid.");
 			bool[][] qRCodeMatrix = null;
 			try
 			{
@@ -319,7 +316,7 @@ namespace ModernQR.Codec.Reader
 			{
 				throw new SymbolNotFoundException("Sampling grid exceeded image boundary");
 			}
-			//canvas.drawMatrix(qRCodeMatrix);
+			////canvas.drawMatrix(qRCodeMatrix);
 			return new QRCodeSymbol(qRCodeMatrix);
 		}
 		
@@ -330,7 +327,7 @@ namespace ModernQR.Codec.Reader
 				throw new System.SystemException("This method must be called after QRCodeImageReader.getQRCodeSymbol() called");
 			}
 			samplingGrid.adjust(adjust);
-			canvas.println("Sampling grid adjusted d(" + adjust.X + "," + adjust.Y + ")");
+			canvas.Log("Sampling grid adjusted d(" + adjust.X + "," + adjust.Y + ")");
 			
 			bool[][] qRCodeMatrix = null;
 			try
@@ -419,8 +416,8 @@ namespace ModernQR.Codec.Reader
 		}
 		for (int ay = 0; ay < samplingGrid.getHeight(); ay++) {
 		for (int ax = 0; ax < samplingGrid.getWidth();ax++) {
-		canvas.drawLines(samplingGrid.getXLines(ax,ay), Color.BLUE);
-		canvas.drawLines(samplingGrid.getYLines(ax,ay), Color.BLUE);
+		//canvas.drawLines(samplingGrid.getXLines(ax,ay), Color.BLUE);
+		//canvas.drawLines(samplingGrid.getYLines(ax,ay), Color.BLUE);
 		}
 		}
 		return samplingGrid;
@@ -518,8 +515,8 @@ namespace ModernQR.Codec.Reader
 		
 		for (int ay = 0; ay < samplingGrid.getHeight(); ay++) {
 		for (int ax = 0; ax < samplingGrid.getWidth();ax++) {
-		canvas.drawLines(samplingGrid.getXLines(ax,ay), java.awt.Color.BLUE);
-		canvas.drawLines(samplingGrid.getYLines(ax,ay), java.awt.Color.BLUE);
+		//canvas.drawLines(samplingGrid.getXLines(ax,ay), java.awt.Color.BLUE);
+		//canvas.drawLines(samplingGrid.getYLines(ax,ay), java.awt.Color.BLUE);
 		}
 		}
 		return samplingGrid;
@@ -667,8 +664,8 @@ namespace ModernQR.Codec.Reader
 		
 		for (int ay = 0; ay < samplingGrid.getHeight(); ay++) {
 		for (int ax = 0; ax < samplingGrid.getWidth();ax++) {
-		canvas.drawLines(samplingGrid.getXLines(ax,ay), java.awt.Color.BLUE);
-		canvas.drawLines(samplingGrid.getYLines(ax,ay), java.awt.Color.BLUE);
+		//canvas.drawLines(samplingGrid.getXLines(ax,ay), java.awt.Color.BLUE);
+		//canvas.drawLines(samplingGrid.getYLines(ax,ay), java.awt.Color.BLUE);
 		}
 		}
 		
@@ -921,7 +918,7 @@ namespace ModernQR.Codec.Reader
 			//		if (gridLines.getWidth() >= 2)
 			//			gridSize-=1;
 			
-			canvas.println("gridSize=" + gridSize);
+			canvas.Log("gridSize=" + gridSize);
 			//canvas.println("gridLines.getWidth() * gridLines.getWidth(0,0) = "+gridLines.getWidth() * gridLines.getWidth(0,0));
 			Point bottomRightPoint = null;
 			bool[][] sampledMatrix = new bool[gridSize][];
@@ -953,16 +950,16 @@ namespace ModernQR.Codec.Reader
 							sampledMatrix[gridLines.getX(ax, x)][gridLines.getY(ay, y)] = image[f / e][g / e];
 							if ((ay == gridLines.getHeight() - 1 && ax == gridLines.getWidth() - 1) && y == gridLines.getHeight(ax, ay) - 1 && x == gridLines.getWidth(ax, ay) - 1)
 								bottomRightPoint = new Point(f / e, g / e);
-							//calling canvas.drawPoint in loop can be very slow.
-							// use canvas.drawPoints if you need
-							//canvas.drawPoint(new Point(f / e,g / e), Color.RED);
+							//calling //canvas.drawPoint in loop can be very slow.
+							// use //canvas.drawPoints if you need
+							////canvas.drawPoint(new Point(f / e,g / e), Color.RED);
 						}
 					}
 				}
 			}
 			if (bottomRightPoint.X > image.Length - 1 || bottomRightPoint.Y > image[0].Length - 1)
 				throw new System.IndexOutOfRangeException("Sampling grid pointed out of image");
-			canvas.drawPoint(bottomRightPoint, ModernQR.Codec.Util.Color_Fields.BLUE);
+			////canvas.drawPoint(bottomRightPoint, ModernQR.Util.Color_Fields.BLUE);
 			
 			return sampledMatrix;
 		}

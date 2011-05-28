@@ -1,5 +1,5 @@
 using System;
-using QRCodeImageReader = ModernQR.Codec.Reader.QRCodeImageReader;
+
 namespace ModernQR.Geom
 {
 	/// <summary> This class designed to move target point based on independent axis.
@@ -67,7 +67,7 @@ namespace ModernQR.Geom
 	
 		public virtual Point translate(int moveX, int moveY)
 		{
-			long dp = QRCodeImageReader.DECIMAL_POINT;
+            long dp = ModernQR.Util.SystemUtils.Constants.DECIMAL_PLACES;
 			Point point = new Point();
 			int dx = (moveX == 0)?0:(modulePitch * moveX) >> (int) dp;
 			int dy = (moveY == 0)?0:(modulePitch * moveY) >> (int) dp;

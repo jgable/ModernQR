@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Core", "ModernQR\ModernQR.Core.csproj", "{8B253C73-4202-4F25-8F12-F2EBCA6B65C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Reader", "ModernQR.Reader\ModernQR.Reader.csproj", "{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Imaging", "ModernQR.Imaging\ModernQR.Imaging.csproj", "{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Reader.Windows", "ModernQR.Reader.Windows\ModernQR.Reader.Windows.csproj", "{7631A5A7-BB09-4F82-B15D-46945EF01A5E}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = ModernQR.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B253C73-4202-4F25-8F12-F2EBCA6B65C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B253C73-4202-4F25-8F12-F2EBCA6B65C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B253C73-4202-4F25-8F12-F2EBCA6B65C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B253C73-4202-4F25-8F12-F2EBCA6B65C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7631A5A7-BB09-4F82-B15D-46945EF01A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7631A5A7-BB09-4F82-B15D-46945EF01A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7631A5A7-BB09-4F82-B15D-46945EF01A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7631A5A7-BB09-4F82-B15D-46945EF01A5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,6 +1,6 @@
 using System;
 
-namespace ThoughtWorks.QRCode.Codec.Data
+namespace ModernQR.Util.Data
 {
 	public interface QRCodeImage
 	{

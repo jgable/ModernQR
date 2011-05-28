@@ -1,5 +1,5 @@
 using System;
-namespace ModernQR.Codec.Reader.Pattern
+namespace ModernQR.Util.Pattern
 {
 	
 	/// <summary> This class returns the position of the position patterns</summary>

@@ -1,20 +1,16 @@
 using System;
 using System.Text;
+using DecodingFailedException = ModernQR.ExceptionHandler.DecodingFailedException;
+using InvalidDataBlockException = ModernQR.ExceptionHandler.InvalidDataBlockException;
+using Point = ModernQR.Geom.Point;
+using QRCodeDataBlockReader = ModernQR.Util.Reader.QRCodeDataBlockReader;
+using QRCodeImage = ModernQR.Util.Data.QRCodeImage;
+using QRCodeImageReader = ModernQR.Util.Reader.QRCodeImageReader;
+using QRCodeSymbol = ModernQR.Util.Data.QRCodeSymbol;
+using ReedSolomon = ModernQR.Util.Ecc.ReedSolomon;
+using SymbolNotFoundException = ModernQR.ExceptionHandler.SymbolNotFoundException;
 
-//using QRCodeImage = ThoughtWorks.QRCode.Codec.Data.QRCodeImage;
-//using QRCodeSymbol = ThoughtWorks.QRCode.Codec.Data.QRCodeSymbol;
-using ReedSolomon = ThoughtWorks.QRCode.Codec.Ecc.ReedSolomon;
-using DecodingFailedException = ThoughtWorks.QRCode.ExceptionHandler.DecodingFailedException;
-using InvalidDataBlockException = ThoughtWorks.QRCode.ExceptionHandler.InvalidDataBlockException;
-using SymbolNotFoundException = ThoughtWorks.QRCode.ExceptionHandler.SymbolNotFoundException;
-using Point = ThoughtWorks.QRCode.Geom.Point;
-using QRCodeDataBlockReader = ThoughtWorks.QRCode.Codec.Reader.QRCodeDataBlockReader;
-using QRCodeImageReader = ThoughtWorks.QRCode.Codec.Reader.QRCodeImageReader;
-using DebugCanvas = ThoughtWorks.QRCode.Codec.Util.DebugCanvas;
-using DebugCanvasAdapter = ThoughtWorks.QRCode.Codec.Util.DebugCanvasAdapter;
-using QRCodeUtility = ThoughtWorks.QRCode.Codec.Util.QRCodeUtility;
-
-namespace ThoughtWorks.QRCode.Codec
+namespace ModernQR.Util
 {
 	
 	public class QRCodeDecoder
@@ -178,8 +174,8 @@ namespace ThoughtWorks.QRCode.Codec
 					else
 					{
 						results.Add(result);
-						canvas.println("Decoding succeeded but could not correct");
-						canvas.println("all errors. Retrying..");
+						canvas.Log("Decoding succeeded but could not correct");
+						canvas.Log("all errors. Retrying..");
 					}
 				}
 				catch (DecodingFailedException dfe)
@@ -207,11 +203,11 @@ namespace ThoughtWorks.QRCode.Codec
 					lowestErrorIndex = i;
 				}
 			}
-			canvas.println("All trials need for correct error");
-			canvas.println("Reporting #" + (lowestErrorIndex) + " that,");
-			canvas.println("corrected minimum errors (" + lowestError + ")");
+			canvas.Log("All trials need for correct error");
+			canvas.Log("Reporting #" + (lowestErrorIndex) + " that,");
+			canvas.Log("corrected minimum errors (" + lowestError + ")");
 			
-			canvas.println("Decoding finished.");
+			canvas.Log("Decoding finished.");
 			return ((DecodeResult) results[lowestErrorIndex]).DecodedBytes;
 		}
 
@@ -261,15 +257,15 @@ namespace ThoughtWorks.QRCode.Codec
 			{
 				if (numTryDecode == 0)
 				{
-					canvas.println("Decoding started");
+					canvas.Log("Decoding started");
 					int[][] intImage = imageToIntArray(qrCodeImage);
 					imageReader = new QRCodeImageReader();
 					qrCodeSymbol = imageReader.getQRCodeSymbol(intImage);
 				}
 				else
 				{
-					canvas.println("--");
-					canvas.println("Decoding restarted #" + (numTryDecode));
+					canvas.Log("--");
+					canvas.Log("Decoding restarted #" + (numTryDecode));
 					qrCodeSymbol = imageReader.getQRCodeSymbolWithAdjustedGrid(adjust);
 				}
 			}
@@ -277,13 +273,13 @@ namespace ThoughtWorks.QRCode.Codec
 			{
 				throw new DecodingFailedException(e.Message);
 			}
-			canvas.println("Created QRCode symbol.");
-			canvas.println("Reading symbol.");
-			canvas.println("Version: " + qrCodeSymbol.VersionReference);
-			canvas.println("Mask pattern: " + qrCodeSymbol.MaskPatternRefererAsString);
+			canvas.Log("Created QRCode symbol.");
+			canvas.Log("Reading symbol.");
+			canvas.Log("Version: " + qrCodeSymbol.VersionReference);
+			canvas.Log("Mask pattern: " + qrCodeSymbol.MaskPatternRefererAsString);
 			// blocks contains all (data and RS) blocks in QR Code symbol
 			int[] blocks = qrCodeSymbol.Blocks;
-			canvas.println("Correcting data errors.");
+			canvas.Log("Correcting data errors.");
 			// now blocks turn to data blocks (corrected and extracted from original blocks)
 			blocks = correctDataBlocks(blocks);
 			try
@@ -293,7 +289,7 @@ namespace ThoughtWorks.QRCode.Codec
 			}
 			catch (InvalidDataBlockException e)
 			{
-				canvas.println(e.Message);
+				canvas.Log(e.Message);
 				throw new DecodingFailedException(e.Message);
 			}
 		}
@@ -332,9 +328,9 @@ namespace ThoughtWorks.QRCode.Codec
 				corrector.correct();
 				numCorrections += corrector.NumCorrectedErrors;
 				if (numCorrections > 0)
-					canvas.println(System.Convert.ToString(numCorrections) + " data errors corrected.");
+					canvas.Log(System.Convert.ToString(numCorrections) + " data errors corrected.");
 				else
-					canvas.println("No errors found.");
+					canvas.Log("No errors found.");
 				numLastCorrections = numCorrections;
 				correctionSucceeded = corrector.CorrectionSucceeded;
 				return blocks;
@@ -447,9 +443,9 @@ namespace ThoughtWorks.QRCode.Codec
 					}
 				}
 				if (numCorrections > 0)
-					canvas.println(System.Convert.ToString(numCorrections) + " data errors corrected.");
+					canvas.Log(System.Convert.ToString(numCorrections) + " data errors corrected.");
 				else
-					canvas.println("No errors found.");
+					canvas.Log("No errors found.");
 				numLastCorrections = numCorrections;
 				return dataBlocks;
 			}
