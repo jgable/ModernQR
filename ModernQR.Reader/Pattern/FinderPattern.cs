@@ -1,9 +1,10 @@
 using ModernQR.Geom;
+using ModernQR.Reader;
 using FinderPatternNotFoundException = ModernQR.ExceptionHandler.FinderPatternNotFoundException;
 using InvalidVersionInfoException = ModernQR.ExceptionHandler.InvalidVersionInfoException;
 using VersionInformationException = ModernQR.ExceptionHandler.VersionInformationException;
 
-namespace ModernQR.Util.Reader.Pattern
+namespace ModernQR.Pattern
 {
 	
 	public class FinderPattern
@@ -66,7 +67,7 @@ namespace ModernQR.Util.Reader.Pattern
 				catch (VersionInformationException e)
 				{
 					//use rough version data
-					// throw e;
+                    canvas.Log("FinderPattern Error: " + e.Message);
 				}
 			}
 			return new FinderPattern(center, version, sincos, width, moduleSize);
@@ -222,7 +223,7 @@ namespace ModernQR.Util.Reader.Pattern
 			for (int i = 0; i < foundLines.Length; i++)
 				foundLines[i] = (Line) lineAcross[i];
 			
-			//canvas.drawLines(foundLines, ModernQR.Util.Color_Fields.LIGHTGREEN);
+			//canvas.drawLines(foundLines, ModernQR.Color_Fields.LIGHTGREEN);
 			return foundLines;
 		}
 		
@@ -429,7 +430,7 @@ namespace ModernQR.Util.Reader.Pattern
 			
 			if (foundPoints.Length == 3)
 			{
-				//canvas.drawPolygon(foundPoints, ModernQR.Util.Color_Fields.RED);
+				//canvas.drawPolygon(foundPoints, ModernQR.Color_Fields.RED);
 				return foundPoints;
 			}
 			else
@@ -674,14 +675,14 @@ namespace ModernQR.Util.Reader.Pattern
 					points[x + y * 3] = target;
 				}
 			}
-			////canvas.drawPoints(points, ModernQR.Util.Color_Fields.RED);
+			////canvas.drawPoints(points, ModernQR.Color_Fields.RED);
 			
 			int exactVersion = 0;
 			try
 			{
 				exactVersion = checkVersionInfo(versionInformation);
 			}
-			catch (InvalidVersionInfoException e)
+			catch (InvalidVersionInfoException)
 			{
 				canvas.Log("Version info error. now retry with other place one.");
 				axis.Origin = centers[DL];
@@ -696,7 +697,7 @@ namespace ModernQR.Util.Reader.Pattern
 						points[x + y * 3] = target;
 					}
 				}
-				////canvas.drawPoints(points, ModernQR.Util.Color_Fields.RED);
+				////canvas.drawPoints(points, ModernQR.Color_Fields.RED);
 				
 				try
 				{

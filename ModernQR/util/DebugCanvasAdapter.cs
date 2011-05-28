@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace ModernQR.Util
+namespace ModernQR
 {
 	public class DebugCanvasAdapter : DebugCanvas
 	{

@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace ModernQR.Util
+namespace ModernQR
 {
 	
 	/* 

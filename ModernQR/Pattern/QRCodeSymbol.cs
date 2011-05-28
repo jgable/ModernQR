@@ -1,9 +1,9 @@
 using System;
 using ModernQR.Geom;
-using BCH15_5 = ModernQR.Util.Ecc.BCH15_5;
-using LogicalSeed = ModernQR.Util.Pattern.LogicalSeed;
+using BCH15_5 = ModernQR.Ecc.BCH15_5;
+using LogicalSeed = ModernQR.Pattern.LogicalSeed;
 
-namespace ModernQR.Util.Data
+namespace ModernQR.Data
 {
 	
 	public class QRCodeSymbol

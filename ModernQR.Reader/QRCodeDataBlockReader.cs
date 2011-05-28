@@ -1,7 +1,7 @@
 using System;
 using InvalidDataBlockException = ModernQR.ExceptionHandler.InvalidDataBlockException;
 
-namespace ModernQR.Util.Reader
+namespace ModernQR.Reader
 {
 	
 	public class QRCodeDataBlockReader

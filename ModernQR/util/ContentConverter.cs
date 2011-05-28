@@ -1,5 +1,5 @@
 using System;
-namespace ModernQR.Util
+namespace ModernQR
 {
 	
 	public class ContentConverter

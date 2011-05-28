@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Core", "ModernQR\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Reader", "ModernQR.Reader\ModernQR.Reader.csproj", "{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Imaging", "ModernQR.Imaging\ModernQR.Imaging.csproj", "{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Reader.Windows", "ModernQR.Reader.Windows\ModernQR.Reader.Windows.csproj", "{7631A5A7-BB09-4F82-B15D-46945EF01A5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Imaging", "ModernQR.Imaging\ModernQR.Imaging.csproj", "{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -26,14 +26,14 @@ Global
 		{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3CAABCF-D6EE-4CF7-9D29-64406389B3B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7631A5A7-BB09-4F82-B15D-46945EF01A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7631A5A7-BB09-4F82-B15D-46945EF01A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7631A5A7-BB09-4F82-B15D-46945EF01A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7631A5A7-BB09-4F82-B15D-46945EF01A5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

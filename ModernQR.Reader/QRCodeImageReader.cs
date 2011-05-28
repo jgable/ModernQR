@@ -1,14 +1,14 @@
 using System;
 using ModernQR.Geom;
-using ModernQR.Util.Data;
-using ModernQR.Util.Reader.Pattern;
+using ModernQR.Data;
+using ModernQR.Pattern;
 using AlignmentPatternNotFoundException = ModernQR.ExceptionHandler.AlignmentPatternNotFoundException;
 using FinderPatternNotFoundException = ModernQR.ExceptionHandler.FinderPatternNotFoundException;
 using InvalidVersionException = ModernQR.ExceptionHandler.InvalidVersionException;
 using SymbolNotFoundException = ModernQR.ExceptionHandler.SymbolNotFoundException;
 using VersionInformationException = ModernQR.ExceptionHandler.VersionInformationException;
 
-namespace ModernQR.Util.Reader
+namespace ModernQR.Reader
 {
 	
 	public class QRCodeImageReader
@@ -22,7 +22,7 @@ namespace ModernQR.Util.Reader
 		
 		//I think it's good idea to use DECIMAL_POINT with type "long" too.
 		
-		public static int DECIMAL_POINT = ModernQR.Util.SystemUtils.Constants.DECIMAL_PLACES;
+		public static int DECIMAL_POINT = ModernQR.SystemUtils.Constants.DECIMAL_PLACES;
 		public const bool POINT_DARK = true;
 		public const bool POINT_LIGHT = false;
 		internal SamplingGrid samplingGrid;
@@ -244,7 +244,7 @@ namespace ModernQR.Util.Reader
 			}
 			catch (FinderPatternNotFoundException e)
 			{
-				canvas.Log("Not found, now retrying...");
+				canvas.Log("Not found, now retrying... " + e.Message);
 				bitmap = applyCrossMaskingMedianFilter(bitmap, 5);
 				//canvas.drawMatrix(bitmap);
 				for (int i = 0; i < 1000000000; i++)
@@ -278,7 +278,7 @@ namespace ModernQR.Util.Reader
 			canvas.Log("Version: " + System.Convert.ToString(version));
 			if (version < 1 || version > 40)
 				throw new InvalidVersionException("Invalid version: " + version);
-			
+		
 			AlignmentPattern alignmentPattern = null;
 			try
 			{
@@ -312,7 +312,7 @@ namespace ModernQR.Util.Reader
 			{
 				qRCodeMatrix = getQRCodeMatrix(bitmap, samplingGrid);
 			}
-			catch (System.IndexOutOfRangeException e)
+			catch (System.IndexOutOfRangeException)
 			{
 				throw new SymbolNotFoundException("Sampling grid exceeded image boundary");
 			}
@@ -334,7 +334,7 @@ namespace ModernQR.Util.Reader
 			{
 				qRCodeMatrix = getQRCodeMatrix(bitmap, samplingGrid);
 			}
-			catch (System.IndexOutOfRangeException e)
+			catch (System.IndexOutOfRangeException)
 			{
 				throw new SymbolNotFoundException("Sampling grid exceeded image boundary");
 			}
@@ -959,7 +959,7 @@ namespace ModernQR.Util.Reader
 			}
 			if (bottomRightPoint.X > image.Length - 1 || bottomRightPoint.Y > image[0].Length - 1)
 				throw new System.IndexOutOfRangeException("Sampling grid pointed out of image");
-			////canvas.drawPoint(bottomRightPoint, ModernQR.Util.Color_Fields.BLUE);
+			////canvas.drawPoint(bottomRightPoint, ModernQR.Color_Fields.BLUE);
 			
 			return sampledMatrix;
 		}

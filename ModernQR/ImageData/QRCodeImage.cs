@@ -1,6 +1,6 @@
 using System;
 
-namespace ModernQR.Util.Data
+namespace ModernQR.Data
 {
 	public interface QRCodeImage
 	{

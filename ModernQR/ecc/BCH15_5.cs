@@ -1,6 +1,6 @@
 using System;
 
-namespace ModernQR.Util.Ecc
+namespace ModernQR.Ecc
 {
 	public class BCH15_5
 	{

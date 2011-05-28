@@ -57,14 +57,12 @@
     <Compile Include="ImageData\QRCodeImage.cs" />
     <Compile Include="Pattern\LogicalSeed.cs" />
     <Compile Include="Pattern\QRCodeSymbol.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="QRCodeEncoder.cs" />
-    <Compile Include="Util\Color.cs" />
     <Compile Include="Util\ConsoleCanvas.cs" />
     <Compile Include="Util\ContentConverter.cs" />
     <Compile Include="Util\DebugCanvas.cs" />

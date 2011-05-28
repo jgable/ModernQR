@@ -1,13 +1,9 @@
 using System;
-//using System.Drawing.Imaging;
-//using System.Drawing;
 using System.IO;
 using System.Text;
 using ModernQR.Core.Properties;
-using QRCodeUtility = ModernQR.Util.QRCodeUtility;
-using SystemUtils = ModernQR.Util.SystemUtils;
 
-namespace ModernQR.Util
+namespace ModernQR
 {
     public class QRCodeEncoder
     {
@@ -15,50 +11,16 @@ namespace ModernQR.Util
         
         public enum ERROR_CORRECTION {L, M, Q, H};
 
-        //internal static String DATA_PATH = "qrcode_data";
-        //internal static String QRCODE_DATA_PATH = String.Empty;
-
         internal int qrcodeVersion;
 		
 		internal int qrcodeStructureappendN;
 		internal int qrcodeStructureappendM;
 		internal int qrcodeStructureappendParity;
         
-        //internal Color qrCodeBackgroundColor;
-        //internal Color qrCodeForegroundColor;
-
         internal String qrcodeStructureappendOriginaldata;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public QRCodeEncoder()
-        {
-            QRCodeErrorCorrect = ERROR_CORRECTION.M;
-            QRCodeEncodeMode = ENCODE_MODE.BYTE;
-            QRCodeScale = 4;            
-            QRCodeVersion = 7;
-
-            qrcodeStructureappendN = 0;
-            qrcodeStructureappendM = 0;
-            qrcodeStructureappendParity = 0;
-            qrcodeStructureappendOriginaldata = "";
-
-            
-
-            //qrCodeBackgroundColor = Color.White;
-            //qrCodeForegroundColor = Color.Black;
-           
-            //QRCODE_DATA_PATH = Environment.CurrentDirectory + @"\" + DATA_PATH;
-
-        }
-
-
-        virtual public ERROR_CORRECTION QRCodeErrorCorrect
-        {
-            get;
-            set;
-        }
+        virtual public ERROR_CORRECTION QRCodeErrorCorrect { get; set; }
+        virtual public ENCODE_MODE QRCodeEncodeMode { get; set; }
 
         virtual public int QRCodeVersion
         {
@@ -71,47 +33,24 @@ namespace ModernQR.Util
                     qrcodeVersion = value;
                 }
             }
-
         }
 
-        virtual public ENCODE_MODE QRCodeEncodeMode
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public QRCodeEncoder()
         {
-            get;
-            set;
-        }
+            QRCodeErrorCorrect = ERROR_CORRECTION.M;
+            QRCodeEncodeMode = ENCODE_MODE.BYTE;            
+            QRCodeVersion = 7;
 
-        virtual public int QRCodeScale
-        {
-            get;
-            set;
-        }
+            qrcodeStructureappendN = 0;
+            qrcodeStructureappendM = 0;
+            qrcodeStructureappendParity = 0;
+            qrcodeStructureappendOriginaldata = "";
+        }        
 
-        //virtual public Color QRCodeBackgroundColor
-        //{
-        //    get
-        //    {
-        //        return qrCodeBackgroundColor;
-        //    }
-        //    set
-        //    {
-        //        qrCodeBackgroundColor = value;
-        //    }
-        //}
-
-        //virtual public Color QRCodeForegroundColor
-        //{
-        //    get
-        //    {
-        //        return qrCodeForegroundColor;
-        //    }
-        //    set
-        //    {
-        //        qrCodeForegroundColor = value;
-        //    }
-        //}
-		
-				
-		public virtual void  setStructureappend(int m, int n, int p)
+        public virtual void  setStructureappend(int m, int n, int p)
 		{
 			if (n > 1 && n <= 16 && m > 0 && m <= 16 && p >= 0 && p <= 255)
 			{
@@ -573,7 +512,7 @@ namespace ModernQR.Util
 			
 			/* --- format information --- */
 			
-			sbyte formatInformationValue = (sbyte) (ec << 3 | maskNumber);
+			sbyte formatInformationValue = (sbyte) (ec << 3 | (byte)maskNumber);
 			
 			String[] formatInformationArray = new String[]{"101010000010010", "101000100100101", "101111001111100", "101101101001011", "100010111111001", "100000011001110", "100111110010111", "100101010100000", "111011111000100", "111001011110011", "111110110101010", "111100010011101", "110011000101111", "110001100011000", "110110001000001", "110100101110110", "001011010001001", "001001110111110", "001110011100111", "001100111010000", "000011101100010", "000001001010101", "000110100001100", "000100000111011", "011010101011111", "011000001101000", "011111100110001", "011101000000110", "010010010110100", "010000110000011", "010111011011010", "010101111101101"};
 			
@@ -991,51 +930,6 @@ namespace ModernQR.Util
 			}
 			return res;
 		}
-
-        ///// <summary>
-        ///// Encode the content using the encoding scheme given
-        ///// </summary>
-        ///// <param name="content"></param>
-        ///// <param name="encoding"></param>
-        ///// <returns></returns>
-        //public virtual Bitmap EncodeImage(String content)
-        //{
-        //    if (QRCodeUtility.IsUniCode(content))
-        //    {
-        //        return EncodeImage(content, Encoding.Unicode);
-        //    }
-        //    else
-        //    {
-        //        return EncodeImage(content, Encoding.ASCII);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Encode the content using the encoding scheme given
-        ///// </summary>
-        ///// <param name="content"></param>
-        ///// <param name="encoding"></param>
-        ///// <returns></returns>
-        //public virtual Bitmap EncodeImage(String content, Encoding encoding)
-        //{
-        //    bool[][] matrix = CalculateQRCode(encoding.GetBytes(content));
-        //    SolidBrush brush = new SolidBrush(qrCodeBackgroundColor);
-        //    Bitmap image = new Bitmap( (matrix.Length * qrCodeScale) + 1, (matrix.Length * qrCodeScale) + 1);
-        //    Graphics g = Graphics.FromImage(image);
-        //    g.FillRectangle(brush, new Rectangle(0, 0, image.Width, image.Height));
-        //    brush.Color = qrCodeForegroundColor ;
-        //    for (int i = 0; i < matrix.Length; i++)
-        //    {
-        //        for (int j = 0; j < matrix.Length; j++)
-        //        {
-        //            if (matrix[j][i])
-        //            {
-        //                g.FillRectangle(brush, j * qrCodeScale, i * qrCodeScale, qrCodeScale, qrCodeScale);
-        //            }
-        //        }
-        //    }
-        //    return image;
-        //}
 
         public virtual bool[][] EncodeData(string content)
         {

@@ -1,6 +1,6 @@
 using System;
 
-namespace ModernQR.Util
+namespace ModernQR
 {
 	public interface DebugCanvas
 	{

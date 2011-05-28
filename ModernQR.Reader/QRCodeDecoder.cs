@@ -3,14 +3,14 @@ using System.Text;
 using DecodingFailedException = ModernQR.ExceptionHandler.DecodingFailedException;
 using InvalidDataBlockException = ModernQR.ExceptionHandler.InvalidDataBlockException;
 using Point = ModernQR.Geom.Point;
-using QRCodeDataBlockReader = ModernQR.Util.Reader.QRCodeDataBlockReader;
-using QRCodeImage = ModernQR.Util.Data.QRCodeImage;
-using QRCodeImageReader = ModernQR.Util.Reader.QRCodeImageReader;
-using QRCodeSymbol = ModernQR.Util.Data.QRCodeSymbol;
-using ReedSolomon = ModernQR.Util.Ecc.ReedSolomon;
+using QRCodeDataBlockReader = ModernQR.Reader.QRCodeDataBlockReader;
+using QRCodeImage = ModernQR.Data.QRCodeImage;
+using QRCodeImageReader = ModernQR.Reader.QRCodeImageReader;
+using QRCodeSymbol = ModernQR.Data.QRCodeSymbol;
+using ReedSolomon = ModernQR.Ecc.ReedSolomon;
 using SymbolNotFoundException = ModernQR.ExceptionHandler.SymbolNotFoundException;
 
-namespace ModernQR.Util
+namespace ModernQR
 {
 	
 	public class QRCodeDecoder
