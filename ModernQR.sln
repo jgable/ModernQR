@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Reader.Windows", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Imaging", "ModernQR.Imaging\ModernQR.Imaging.csproj", "{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernQR.Tests", "ModernQR.Core.Tests\ModernQR.Tests.csproj", "{A47CC12A-6DAD-431A-B05F-C678EA83A22D}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = ModernQR.vsmdi
@@ -34,6 +36,10 @@ Global
 		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EA30FC5-AB3B-43F0-A0D8-47E3B3AB4D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A47CC12A-6DAD-431A-B05F-C678EA83A22D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47CC12A-6DAD-431A-B05F-C678EA83A22D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47CC12A-6DAD-431A-B05F-C678EA83A22D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47CC12A-6DAD-431A-B05F-C678EA83A22D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

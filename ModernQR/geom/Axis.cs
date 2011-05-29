@@ -11,6 +11,7 @@ namespace ModernQR.Geom
         internal int sin, cos;
         internal int modulePitch;
         internal Point origin;
+        private  int decimalPlaces;
 
         virtual public Point Origin
 		{
@@ -29,8 +30,9 @@ namespace ModernQR.Geom
 			
 		}
 		
-		public Axis(int[] angle, int modulePitch)
+		public Axis(int[] angle, int modulePitch, int decimalPlaces)
 		{
+            this.decimalPlaces = decimalPlaces;
 			this.sin = angle[0];
 			this.cos = angle[1];
 			this.modulePitch = modulePitch;
@@ -67,7 +69,7 @@ namespace ModernQR.Geom
 	
 		public virtual Point translate(int moveX, int moveY)
 		{
-            long dp = ModernQR.SystemUtils.Constants.DECIMAL_PLACES;
+            long dp = this.decimalPlaces;
 			Point point = new Point();
 			int dx = (moveX == 0)?0:(modulePitch * moveX) >> (int) dp;
 			int dy = (moveY == 0)?0:(modulePitch * moveY) >> (int) dp;

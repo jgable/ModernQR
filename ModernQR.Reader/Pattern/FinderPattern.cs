@@ -663,14 +663,14 @@ namespace ModernQR.Pattern
 			bool[] versionInformation = new bool[18];
 			Point[] points = new Point[18];
 			Point target;
-			Axis axis = new Axis(angle, moduleSize[UR]); //UR
+            Axis axis = new Axis(angle, moduleSize[UR], QRCodeImageReader.DECIMAL_POINT); //UR
 			axis.Origin = centers[UR];
 			
 			for (int y = 0; y < 6; y++)
 			{
 				for (int x = 0; x < 3; x++)
 				{
-					target = axis.translate(x - 7, y - 3);
+                    target = axis.translate(x - 7, y - 3);
 					versionInformation[x + y * 3] = image[target.X][target.Y];
 					points[x + y * 3] = target;
 				}
@@ -692,7 +692,7 @@ namespace ModernQR.Pattern
 				{
 					for (int y = 0; y < 3; y++)
 					{
-						target = axis.translate(x - 3, y - 7);
+                        target = axis.translate(x - 3, y - 7);
 						versionInformation[y + x * 3] = image[target.X][target.Y];
 						points[x + y * 3] = target;
 					}

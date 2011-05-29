@@ -686,7 +686,6 @@ namespace ModernQR.Reader
 			//int sqrtNumModules = finderPattern.getSqrtNumModules(); /// The number of modules per one side is obtained
 			int sqrtNumArea = sqrtCenters - 1;
 			
-			//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//--//
 			SamplingGrid samplingGrid = new SamplingGrid(sqrtNumArea);
 			
 			Line baseLineX, baseLineY, gridLineX, gridLineY;
@@ -695,7 +694,7 @@ namespace ModernQR.Reader
 			//Point[] targetCenters;
 			
 			//int logicalDistance = alignmentPattern.getLogicalDistance();
-			Axis axis = new Axis(finderPattern.getAngle(), finderPattern.getModuleSize());
+            Axis axis = new Axis(finderPattern.getAngle(), finderPattern.getModuleSize(), QRCodeImageReader.DECIMAL_POINT);
 			ModulePitch modulePitch;
 			
 			// for each area :
@@ -865,11 +864,11 @@ namespace ModernQR.Reader
 						
 						axis.Origin = gridLineX.getP1();
 						axis.ModulePitch = modulePitch.top;
-						gridLineX.setP1(axis.translate(i, 0));
+                        gridLineX.setP1(axis.translate(i, 0));
 						
 						axis.Origin = gridLineX.getP2();
 						axis.ModulePitch = modulePitch.bottom;
-						gridLineX.setP2(axis.translate(i, 0));
+                        gridLineX.setP2(axis.translate(i, 0));
 						
 						samplingGrid.setXLine(ax, ay, i, gridLineX);
 					}
@@ -881,11 +880,11 @@ namespace ModernQR.Reader
 						
 						axis.Origin = gridLineY.getP1();
 						axis.ModulePitch = modulePitch.left;
-						gridLineY.setP1(axis.translate(0, i));
+                        gridLineY.setP1(axis.translate(0, i));
 						
 						axis.Origin = gridLineY.getP2();
 						axis.ModulePitch = modulePitch.right;
-						gridLineY.setP2(axis.translate(0, i));
+                        gridLineY.setP2(axis.translate(0, i));
 						
 						samplingGrid.setYLine(ax, ay, i, gridLineY);
 					}
@@ -944,7 +943,7 @@ namespace ModernQR.Reader
 							int x4 = gridLines.getYLine(ax, ay, y).getP2().X;
 							int y4 = gridLines.getYLine(ax, ay, y).getP2().Y;
 							
-							int e = (y2 - y1) * (x3 - x4) - (y4 - y3) * (x1 - x2);
+                            int e = (y2 - y1) * (x3 - x4) - (y4 - y3) * (x1 - x2);
 							int f = (x1 * y2 - x2 * y1) * (x3 - x4) - (x3 * y4 - x4 * y3) * (x1 - x2);
 							int g = (x3 * y4 - x4 * y3) * (y2 - y1) - (x1 * y2 - x2 * y1) * (y4 - y3);
 							sampledMatrix[gridLines.getX(ax, x)][gridLines.getY(ay, y)] = image[f / e][g / e];

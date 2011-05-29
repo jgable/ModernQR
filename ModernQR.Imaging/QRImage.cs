@@ -14,8 +14,12 @@ namespace ModernQR.Imaging
         virtual public Color QRCodeForegroundColor { get; set; }        
 
         public QRImage()
+            : this(new QRCodeEncoder())
+        { }
+
+        public QRImage(QRCodeEncoder encoder)
         {
-            this.Encoder = new QRCodeEncoder();
+            this.Encoder = encoder;
 
             this.QRCodeBackgroundColor = Color.White;
             this.QRCodeForegroundColor = Color.Black;
@@ -47,10 +51,12 @@ namespace ModernQR.Imaging
             Bitmap image = new Bitmap((matrix.Length * cellWidth) + 1, (matrix.Length * cellWidth) + 1);
             Graphics g = Graphics.FromImage(image);
             SolidBrush brush = new SolidBrush(QRCodeBackgroundColor);
-            brush.Color = QRCodeForegroundColor;
-
-            g.FillRectangle(brush, new Rectangle(0, 0, image.Width, image.Height));            
             
+            // Create the white rectangle
+            g.FillRectangle(brush, new Rectangle(0, 0, image.Width, image.Height));
+
+            // Set the brush back to black for true squares.
+            brush.Color = QRCodeForegroundColor;
             for (int i = 0; i < matrix.Length; i++)
             {
                 for (int j = 0; j < matrix.Length; j++)

@@ -62,7 +62,7 @@ namespace ModernQR.Pattern
 		{
 			int moduleSize = finderPattern.getModuleSize();
 			
-			Axis axis = new Axis(finderPattern.getAngle(), moduleSize);
+			Axis axis = new Axis(finderPattern.getAngle(), moduleSize, QRCodeImageReader.DECIMAL_POINT);
 			int sqrtCenters = logicalCenters.Length;
 			Point[][] centers = new Point[sqrtCenters][];
 			for (int i = 0; i < sqrtCenters; i++)
@@ -75,11 +75,11 @@ namespace ModernQR.Pattern
 			//canvas.drawCross(centers[0][0], ModernQR.Color_Fields.BLUE);
 			
 			axis.Origin = finderPattern.getCenter(FinderPattern.UR);
-			centers[sqrtCenters - 1][0] = axis.translate(- 3, 3);
+            centers[sqrtCenters - 1][0] = axis.translate(-3, 3);
 			//canvas.drawCross(centers[sqrtCenters - 1][0], ModernQR.Color_Fields.BLUE);
 			
 			axis.Origin = finderPattern.getCenter(FinderPattern.DL);
-			centers[0][sqrtCenters - 1] = axis.translate(3, - 3);
+            centers[0][sqrtCenters - 1] = axis.translate(3, -3);
 			//canvas.drawCross(centers[0][sqrtCenters - 1], ModernQR.Color_Fields.BLUE);
 			
 			Point tmpPoint = centers[0][0];
