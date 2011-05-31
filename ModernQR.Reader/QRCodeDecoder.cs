@@ -132,32 +132,6 @@ namespace ModernQR
 			QRCodeDecoder.canvas = new DebugCanvasAdapter();
 		}
 		
-		/*	public byte[] decode(QRCodeImage qrCodeImage) throws DecodingFailedException{
-		    canvas.println("Decoding started.");
-		    int[][] intImage = imageToIntArray(qrCodeImage);
-		    try {
-		    QRCodeImageReader reader = new QRCodeImageReader();
-		    qrCodeSymbol = reader.getQRCodeSymbol(intImage);
-		    } catch (SymbolNotFoundException e) {
-		    throw new DecodingFailedException(e.getMessage());
-		    }
-		    canvas.println("Created QRCode symbol.");
-		    canvas.println("Reading symbol.");
-		    canvas.println("Version: " + qrCodeSymbol.getVersionReference());		
-		    canvas.println("Mask pattern: " + qrCodeSymbol.getMaskPatternRefererAsString());
-		    int[] blocks = qrCodeSymbol.getBlocks();
-		    canvas.println("Correcting data errors.");
-		    int[] dataBlocks = correctDataBlocks(blocks);
-		    try {
-		    byte[] decodedByteArray = 
-		    getDecodedByteArray(dataBlocks, qrCodeSymbol.getVersion());
-		    canvas.println("Decoding finished.");
-		    return decodedByteArray;
-		    } catch (InvalidDataBlockException e) {
-		    throw new DecodingFailedException(e.getMessage());
-		    }
-		}*/
-		
 		public virtual sbyte[] decodeBytes(QRCodeImage qrCodeImage)
 		{
 			Point[] adjusts = AdjustPoints;

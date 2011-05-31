@@ -246,9 +246,7 @@ namespace ModernQR.Reader
 			{
 				canvas.Log("Not found, now retrying... " + e.Message);
 				bitmap = applyCrossMaskingMedianFilter(bitmap, 5);
-				//canvas.drawMatrix(bitmap);
-				for (int i = 0; i < 1000000000; i++)
-					;
+				
 				try
 				{
 					finderPattern = FinderPattern.findFinderPattern(bitmap);
